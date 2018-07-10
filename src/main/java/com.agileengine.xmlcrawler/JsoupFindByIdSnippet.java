@@ -8,21 +8,24 @@ import java.util.stream.Collectors;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
 public class JsoupFindByIdSnippet {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(JsoupFindByIdSnippet.class);
+    private static Logger LOGGER = (Logger)LoggerFactory.getLogger(JsoupFindByIdSnippet.class);
 
     private static String CHARSET_NAME = "utf8";
 
     public static void main(String[] args) {
 
+
+
         // Jsoup requires an absolute file path to resolve possible relative paths in HTML,
         // so providing InputStream through classpath resources is not a case
-        String resourcePath = "./samples/startbootstrap-freelancer-gh-pages-cut.html";
+        String resourcePath = "C:/Users/admin/Google Диск/codeacademy/AgileEngineTask/html/sample-0-origin.html";
         String targetElementId = "make-everything-ok-button";
 
         Optional<Element> buttonOpt = findElementById(new File(resourcePath), targetElementId);
@@ -34,6 +37,7 @@ public class JsoupFindByIdSnippet {
         );
 
         stringifiedAttributesOpt.ifPresent(attrs -> LOGGER.info("Target element attrs: [{}]", attrs));
+        System.out.println(stringifiedAttributesOpt);
     }
 
     private static Optional<Element> findElementById(File htmlFile, String targetElementId) {

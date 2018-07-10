@@ -23,7 +23,7 @@ public class JsoupCssSelectSnippet {
 
         // Jsoup requires an absolute file path to resolve possible relative paths in HTML,
         // so providing InputStream through classpath resources is not a case
-        String resourcePath = "./samples/startbootstrap-freelancer-gh-pages-cut.html";
+        String resourcePath = "C:/Users/admin/Google Диск/codeacademy/AgileEngineTask/html/sample-0-origin.html";
 
         String cssQuery = "div[id=\"success\"] button[class*=\"btn-primary\"]";
 

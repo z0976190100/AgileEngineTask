@@ -12,12 +12,3 @@ public class MakeOkButton {
 
 }
 
-//<a
-//                                id="make-everything-ok-button"
-//class="btn btn-success"
-//        href="#ok"
-//
-//        rel="next"
-//        onclick="javascript:window.okDone(); return false;">
-//        Make everything OK
-//</a>
