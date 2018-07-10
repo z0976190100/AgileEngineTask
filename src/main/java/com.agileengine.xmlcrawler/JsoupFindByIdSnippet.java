@@ -23,7 +23,7 @@ public class JsoupFindByIdSnippet {
         // Jsoup requires an absolute file path to resolve possible relative paths in HTML,
         // so providing InputStream through classpath resources is not a case
         String resourcePath = "./samples/startbootstrap-freelancer-gh-pages-cut.html";
-        String targetElementId = "sendMessageButton";
+        String targetElementId = "make-everything-ok-button";
 
         Optional<Element> buttonOpt = findElementById(new File(resourcePath), targetElementId);
 
