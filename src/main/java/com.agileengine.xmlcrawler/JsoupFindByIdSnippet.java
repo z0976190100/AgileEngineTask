@@ -9,18 +9,18 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import org.jsoup.nodes.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
 public class JsoupFindByIdSnippet {
 
-    private static Logger LOGGER = (Logger)LoggerFactory.getLogger(JsoupFindByIdSnippet.class);
-
+    private static Logger LOGGER = (Logger) LoggerFactory.getLogger(JsoupFindByIdSnippet.class);
+    private static String nodeList = "";
     private static String CHARSET_NAME = "utf8";
 
     public static void main(String[] args) {
-
 
 
         // Jsoup requires an absolute file path to resolve possible relative paths in HTML,
@@ -28,32 +28,45 @@ public class JsoupFindByIdSnippet {
         String resourcePath = "C:/Users/admin/Google Диск/codeacademy/AgileEngineTask/html/sample-0-origin.html";
         String targetElementId = "make-everything-ok-button";
 
-        Optional<Element> buttonOpt = findElementById(new File(resourcePath), targetElementId);
+        Element buttonOpt = findElementById(new File(resourcePath), targetElementId);
 
-        Optional<String> stringifiedAttributesOpt = buttonOpt.map(button ->
-                button.attributes().asList().stream()
-                        .map(attr -> attr.getKey() + " = " + attr.getValue())
-                        .collect(Collectors.joining(", "))
-        );
+        if (buttonOpt == null) {
+            System.out.println("No button is found.");
+            System.exit(0);
+        }
 
-        stringifiedAttributesOpt.ifPresent(attrs -> LOGGER.info("Target element attrs: [{}]", attrs));
-        System.out.println(stringifiedAttributesOpt);
+        Node buttonParent = buttonOpt.parentNode();
+        getNextParentNodeName(buttonParent);
+
+        System.out.println(nodeList);
     }
 
-    private static Optional<Element> findElementById(File htmlFile, String targetElementId) {
+    private static Element findElementById(File htmlFile, String targetElementId) {
         try {
             Document doc = Jsoup.parse(
                     htmlFile,
                     CHARSET_NAME,
                     htmlFile.getAbsolutePath());
 
-            return Optional.of(doc.getElementById(targetElementId));
+            return doc.getElementById(targetElementId);
 
         } catch (IOException e) {
             LOGGER.error("Error reading [{}] file", htmlFile.getAbsolutePath(), e);
-            return Optional.empty();
+            return null;
         }
     }
+
+    private static void getNextParentNodeName(Node childNode) {
+
+        if (childNode.parentNode().nodeName() == "html") {
+            nodeList = "html > " + nodeList;
+            return;
+        }
+            nodeList = (childNode.parentNode().nodeName()) + " > " + nodeList;
+            getNextParentNodeName(childNode.parentNode());
+        }
+
+
 
 }
 
