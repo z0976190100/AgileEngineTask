@@ -12,9 +12,9 @@ import java.io.File;
 import java.io.IOException;
 
 
-public class JsoupFindByIdSnippet {
+public class ElementFinder {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(JsoupFindByIdSnippet.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(ElementFinder.class);
     private static String targetElementId = "make-everything-ok-button";
     private static String targetElementAttr = "onclick";
     private static String XMLPath = "";
