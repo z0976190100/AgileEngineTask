@@ -17,7 +17,7 @@ public class ElementFinder {
     private static Logger LOGGER = LoggerFactory.getLogger(ElementFinder.class);
     private static String targetElementId = "make-everything-ok-button";
     private static String targetElementAttr = "onclick";
-    private static String XMLPath = "";
+    private static String requiredElementPath = "";
     private static final String ONCLICK_DONE = "window.okDone";
     private static final String ONCLICK_COMPLETE = "window.okComplete";
     private static final String ONCLICK_FINALIZE = "window.okFinalize";
@@ -26,8 +26,6 @@ public class ElementFinder {
 
     public static void main(String[] args) {
 
-        // Jsoup requires an absolute file path to resolve possible relative paths in HTML,
-        // so providing InputStream through classpath resources is not a case
         String resourcePath = args[0];//"C:/Users/admin/Google Диск/codeacademy/AgileEngineTask/src/main/resources/html/sample-0-origin.html";
         String resourcePath2 = args[1];//"C:/Users/admin/Google Диск/codeacademy/AgileEngineTask/src/main/resources/html/sample-2-container-and-clone.html";//"C:/Users/admin/Google Диск/codeacademy/AgileEngineTask/html/sample-0-origin.html";
 
@@ -38,15 +36,15 @@ public class ElementFinder {
         Element requiredEl = findElementByAttr(new File(resourcePath2), targetElementAttr);
 
         if (requiredEl != null) {
-            XMLPath = requiredEl.tagName();
+            requiredElementPath = requiredEl.tagName();
             Node elementParent = requiredEl.parent();
             getNextParentNodeName(elementParent);
             System.out.println("onclick Value is: " + onclickValue);
-            System.out.println("Target element in diff-file XML path is: " + XMLPath);
+            System.out.println("Target element in diff-file XML path is: " + requiredElementPath);
             System.exit(0);
         }
 
-        System.out.println("it seems, no match found");
+        System.out.println("It seems, no match found");
         System.exit(0);
 
 
@@ -109,11 +107,11 @@ public class ElementFinder {
 
     private static void getNextParentNodeName(Node childNode) {
 
-        if (childNode.parentNode().nodeName() == "html") {
-            XMLPath = "html > " + XMLPath;
+        if (childNode.parentNode().nodeName().equals("html")) {
+            requiredElementPath = "html > " + requiredElementPath;
             return;
         }
-        XMLPath = (childNode.parentNode().nodeName()) + " > " + XMLPath;
+        requiredElementPath = (childNode.parentNode().nodeName()) + " > " + requiredElementPath;
         getNextParentNodeName(childNode.parentNode());
     }
 
